@@ -1,6 +1,6 @@
 {
-  "form.label": "UUID",
-  "form.description": "Generates UUID v4",
+  "form.label": "UUIDv7",
+  "form.description": "Generates UUID v7",
   "form.field.generate": "Generate",
-  "form.field.error": "The UUID format is invalid."
+  "form.field.error": "The UUIDv7 format is invalid."
 }

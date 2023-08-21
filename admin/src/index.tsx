@@ -11,20 +11,20 @@ const name = pluginPkg.strapi.name;
 export default {
   register(app: any) {
     app.customFields.register({
-      name: "uuid",
+      name: "uuidv7",
       pluginId,
       type: "string",
       intlLabel: {
         id: getTrad("form.label"),
-        defaultMessage: "UUID",
+        defaultMessage: "UUIDv7",
       },
       intlDescription: {
         id: getTrad("form.description"),
-        defaultMessage: "Generates a UUID v4",
+        defaultMessage: "Generates a UUID v7",
       },
       icon: InputIcon,
       components: {
-        Input: async () => import(/* webpackChunkName: "input-uuid-component" */ "./components/Input"),
+        Input: async () => import(/* webpackChunkName: "input-uuidv7-component" */ "./components/Input"),
       },
       options: {
         advanced: [

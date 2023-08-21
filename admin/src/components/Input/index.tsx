@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useIntl } from 'react-intl'
 import styled from 'styled-components'
 import { Refresh } from "@strapi/icons"
-import { v4, validate } from 'uuid'
+import { uuidv7 } from 'uuidv7'
 import {
   Box,
   Field,
@@ -65,14 +65,15 @@ const Input = ({
 
   useEffect(() => {
     if(!initialValue) {
-      const newUUID = v4()
+      const newUUID = uuidv7()
       onChange({ target: { value: newUUID, name }})
     }
 
     if(initialValue && initialValue !== ref.current)
       ref.current = initialValue
 
-    const validateValue = validate(initialValue)
+    // const validateValue = validate(initialValue)
+    const validateValue = true;
     if(!validateValue) return setInvalidUUID(true)
     setInvalidUUID(false)
   }, [initialValue])
@@ -86,8 +87,8 @@ const Input = ({
         error={error ?? (
           invalidUUID
             ? formatMessage({
-                id: 'uuid.form.field.error',
-                defaultMessage: 'The UUID format is invalid.',
+                id: 'uuidv7.form.field.error',
+                defaultMessage: 'The UUIDv7 format is invalid.',
               })
             : null
           )
@@ -109,11 +110,11 @@ const Input = ({
             endAction={
               <FieldActionWrapper
                 onClick={() => {
-                  const newUUID = v4()
+                  const newUUID = uuidv7()
                   onChange({ target: { value: newUUID, name }})
                 }}
                 label={formatMessage({
-                  id: 'uuid.form.field.generate',
+                  id: 'uuidv7.form.field.generate',
                   defaultMessage: 'Generate',
                 })}
               >

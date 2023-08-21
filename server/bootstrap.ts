@@ -1,7 +1,7 @@
 "use strict";
 
 import type { Strapi } from "@strapi/strapi";
-import { v4, validate } from "uuid";
+import { uuidv7 } from "uuidv7";
 
 export default ({ strapi }: { strapi: Strapi }) => {
   const { contentTypes } = strapi
@@ -11,7 +11,7 @@ export default ({ strapi }: { strapi: Strapi }) => {
 
     const attributes = Object.keys(contentType.attributes).filter((attrKey) => {
       const attribute = contentType.attributes[attrKey]
-      if(attribute.customField === 'plugin::field-uuid.uuid') {
+      if(attribute.customField === 'plugin::field-uuidv7.uuidv7') {
         return true
       }
     })
@@ -28,8 +28,9 @@ export default ({ strapi }: { strapi: Strapi }) => {
   strapi.db.lifecycles.subscribe((event) => {
     if (event.action === 'beforeCreate' && modelsToSubscribe.includes(event.model.uid)) {
       models[event.model.uid].forEach((attribute) => {
-        if(!event.params.data[attribute] || !validate(event.params.data[attribute])) {
-          event.params.data[attribute] = v4()
+        // if(!event.params.data[attribute] || !validate(event.params.data[attribute])) {
+        if(!event.params.data[attribute]) {
+          event.params.data[attribute] = uuidv7()
         }
       })
     }
